@@ -2,28 +2,28 @@
 
 /* General config */
 
-$config['general']['site_url'] = "SITE_URL";
-$config['general']['site_name'] = "YOUR_SITE_NAME";
-$config['general']['passwordSalt'] = "PASSWORD_SALT";
+$config['general']['site_url'] = "localhost";
+$config['general']['site_name'] = "OTA XAFF";
+$config['general']['passwordSalt'] = "faofAUfsafuz74";
 
 /* User data */
 
-$config['user']['email'] = "ADMIN_EMAIL";
-$config['user']['username'] = "ADMIN_USERNAME";
-$config['user']['initPassword'] = md5("ADMIN_PASSWORD".$config['general']['passwordSalt']);
+$config['user']['email'] = "sm1leua@ya.ru";
+$config['user']['username'] = "iSm1le";
+$config['user']['initPassword'] = md5("admin" . $config['general']['passwordSalt']);
 
 /* DATABASE CONFIG */
 $mysql = array(
     "host" => "localhost",
-    "user" => "DB_USER",
-    "pass" => "DB_USER_PASSWORD",
-    "db" => "DB_NAME",
-    "dbPrefix" => "DB_PREFIX",
+    "user" => "dbuser1",
+    "pass" => "dbuser1",
+    "db" => "otaserver",
+    "dbPrefix" => "ota_",
 );
 
 /* DON`T CHANGE ANYTHING UNDER THIS LINE IF YOU DON`T KNOW WHAT YOU DO */
 
-if(!isset($_SESSION)) {
+if (!isset($_SESSION)) {
     session_start();
 }
 
@@ -32,12 +32,13 @@ $config['mysqli'] = new mysqli($mysql['host'], $mysql['user'], $mysql['pass']);
 if (!$config['mysqli']->query("CREATE DATABASE IF NOT EXISTS {$mysql['db']}")) die("DB check error");
 $config['mysqli'] = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
 
-function checkTable($table, $mysqli) {
+function checkTable($table, $mysqli)
+{
     if ($mysqli->query("SELECT * FROM $table")->num_rows > 0) return true;
     return false;
 }
 
-$config['dbTables']['userAccounts'] = $mysql['dbPrefix'].'accounts';
+$config['dbTables']['userAccounts'] = $mysql['dbPrefix'] . 'accounts';
 
 if (!checkTable($config['dbTables']['userAccounts'], $config['mysqli'])) {
     $config['mysqli']->query("CREATE TABLE {$config['dbTables']['userAccounts']} (
