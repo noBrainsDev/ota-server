@@ -5,6 +5,13 @@
 $config['general']['site_url'] = "SITE_URL";
 $config['general']['site_name'] = "YOUR_SITE_NAME";
 $config['general']['passwordSalt'] = "PASSWORD_SALT";
+$config['general']['author'] = "iSm1le";
+
+/* Paths */
+
+$config['path']['favicon'] = "FAVICON_PATH";
+$config['path']['logo'] = "LOGO_PATH";
+$config['path']['admin_interface'] = "ADMIN_FOLDER_PATH";
 
 /* User data */
 
@@ -27,9 +34,9 @@ if(!isset($_SESSION)) {
     session_start();
 }
 
-$config['mysqli'] = new mysqli($mysql['host'], $mysql['user'], $mysql['pass']);
+/*$config['mysqli'] = new mysqli($mysql['host'], $mysql['user'], $mysql['pass']);
 
-if (!$config['mysqli']->query("CREATE DATABASE IF NOT EXISTS {$mysql['db']}")) die("DB check error");
+if (!$config['mysqli']->query("CREATE DATABASE IF NOT EXISTS {$mysql['db']}")) die("DB check error");*/
 $config['mysqli'] = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
 
 function checkTable($table, $mysqli) {

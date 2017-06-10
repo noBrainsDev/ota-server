@@ -11,21 +11,32 @@ require_once dirname(__FILE__) . '/plugins/class.smtp.php';
 require_once dirname(__FILE__) . '/plugins/timeconvert.php';
 
 //Getting the post "action"
-switch ($_POST['action']) {
-    case 'login':
-        $email = mysqli_real_escape_string($config['mysqli'], $_POST['email']);
-        $password = md5(mysqli_real_escape_string($config['mysqli'], $_POST['password'] . $config['general']['passwordSalt']));
+if (isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case 'login':
+            $email = mysqli_real_escape_string($config['mysqli'], $_POST['email']);
+            $password = mysqli_real_escape_string($config['mysqli'], $_POST['password']);
 
-        $get_user = $config['mysqli']->query("SELECT * FROM {$config['dbTables']['userAccounts']} WHERE email='$email' AND password='$password'");
-        if ($email != '' || $password != '' || $email != null || $password != null) {
-            if ($get_user->num_rows == 1) {
-                $_SESSION['administrator'] = $email;
-                header('Location: ../_admin/index.php');
+            if ($email != '' || $password != '' || $email != null || $password != null) {
+                $password = md5(mysqli_real_escape_string($config['mysqli'], $_POST['password'] . $config['general']['passwordSalt']));
+                $get_user = $config['mysqli']->query("SELECT * FROM {$config['dbTables']['userAccounts']} WHERE email='$email' AND password='$password'");
+                if ($get_user->num_rows == 1) {
+                    $_SESSION['administrator'] = $email;
+                    header("Location: ../{$config['path']['admin_interface']}/index.php");
+                } else {
+                    header("Location: ../{$config['path']['admin_interface']}/login.php?login=wrong");
+                }
             } else {
-                header('Location: ../_admin/login.php?login=wrong');
+                header("Location: ../{$config['path']['admin_interface']}/login.php?login=fields");
             }
-        } else {
-            header('Location: ../_admin/login.php?login=fields');
-        }
-        break;
+            break;
+    }
+}
+if (isset($_GET)) {
+    switch ($_GET['action']) {
+        case 'logout':
+            session_destroy();
+            header("Location: ../{$config['path']['admin_interface']}/login.php");
+            break;
+    }
 }

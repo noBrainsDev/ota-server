@@ -1,7 +1,6 @@
 # Database arhitecture
 ## input data:
-###GET request contain:
-s=5F6CCFF79B3C32F7F2522DE0F87CC48D, t=miui_active_user, and base64 encoded:
+?mre= base64 encoded: s=5F6CCFF79B3C32F7F2522DE0F87CC48D, t=miui_active_user, and base64 encoded:
 ```javascript
 value={
     "imei":"IMEI_NUMBER", //string
@@ -32,3 +31,4 @@ value={
     "ui_ver":"V8"
 }
 ```
+

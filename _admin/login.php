@@ -37,9 +37,11 @@ MAIN CONTENT
             <h2 class="form-login-heading">Sign in</h2>
             <input type="hidden" name="action" value="login">
             <div class="login-wrap">
-                <input type="text" id="email" name="email" class="form-control" placeholder="E-Mail" autofocus>
+                <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,10}$" id="email" name="email"
+                       class="form-control" placeholder="E-Mail" required autofocus>
                 <br>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+                       required>
                 <br>
                 <button class="btn btn-theme btn-block" id="submit"><i class="fa fa-lock"></i> Sign in</button>
             </div>
@@ -50,7 +52,7 @@ MAIN CONTENT
             if ($_GET['login'] == 'wrong') {
                 echo '<div class="alert alert-danger" role="alert">' . "Login incorrect" . '</div>';
             } elseif ($_GET['login'] == 'fields') {
-                echo '<div class="alert alert-danger" role="alert">' . "Fill in all fields!" . '</div>';
+                echo '<div class="alert alert-info" role="alert">' . "Fill in all fields!" . '</div>';
             }
             ?>
         </div>
